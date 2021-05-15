@@ -46,10 +46,10 @@ public:
 	}
 
 	double length() const {
-		return sqrt(lenght_squared());
+		return sqrt(length_squared());
 	}
 
-	double lenght_squared() const {
+	double length_squared() const {
 		return e[0] * e[0] + e[1] * e[1] + e[2] * e[2];
 	}
 
