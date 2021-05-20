@@ -1,40 +1,19 @@
+#include "Utility.h"
 #include "Color.h"
-#include "Ray.h"
-#include "Vec3.h"
-#include <iostream>
+#include "Hittable_list.h"
+#include "Sphere.h"
 
+#include<iostream>
+Color ray_color(const Ray& r, const Hittable& world) {
+	hit_record rec;
+	if (world.hit(r,0,infinity,rec)) {
+		return 0.5 * (rec.normal + Color(1, 1, 1));
+	}
 
-double hit_sphere(const Point3 &center, double radius, const Ray& r )
-{
-	Vec3 oc = r.origin() - center;
-	auto a = r.direction().length_squared();
-	auto half_b = dot(oc, r.direction());
-	auto c = oc.length_squared() - radius * radius;
-	auto discriminant = half_b * half_b - a * c;
-	if (discriminant < 0)
-	{
-		return -1;
-	}
-	else
-	{
-		return (-half_b - sqrt(discriminant)) / (a);
-	}
-}
-
-Color ray_color(const Ray &r)
-{
-	auto t = hit_sphere(Point3(0,0,-1),0.5,r);
-	if (t>0.0)
-	{
-		Vec3 N = unit_vector(r.at(t) - Vec3(0, 0, -1));
-		return	0.5 * Color(N.x() + 1, N.y() + 1, N.z() + 1);
-	}
 	Vec3 unit_direction = unit_vector(r.direction());
-	t = 0.5 * (unit_direction.y() + 1.0);
-
-	//linear interpolation 0.0 <= t <= 1.0. -> blendedValue = (1-t) * startValue + t * endValue
-	//startValue is white, endValue is blue
+	auto t = 0.5 * (unit_direction.y() + 1.0);
 	return (1.0 - t) * Color(1.0, 1.0, 1.0) + t * Color(0.5, 0.7, 1.0);
+
 }
 
 
@@ -49,6 +28,12 @@ int main()
 	auto viewport_height = 2.0;
 	auto viewport_width = aspect_ratio * viewport_height;
 	auto focal_length = 1.0;
+
+	// World
+	Hittable_list world;
+	world.add(make_shared<Sphere>(Point3(0, 0, -1), 0.5));
+	world.add(make_shared<Sphere>(Point3(0, -100.5, -1), 100));
+
 
 	auto origin = Point3(0, 0, 0);
 	auto horizontal = Vec3(viewport_width, 0, 0);
@@ -65,7 +50,7 @@ int main()
 			auto u = double(i) / (image_width - 1);
 			auto v = double(j) / (image_height - 1);
 			Ray r(origin, lower_left_corner + u*horizontal + v*vertical - origin);
-			Color pixel_color = ray_color(r);
+			Color pixel_color = ray_color(r,world);
 			write_color(std::cout, pixel_color);
 		}
 	}
