@@ -49,7 +49,7 @@ int main()
 	Hittable_list world;
 
 	auto material_ground = make_shared<Lambertian>(Color(0.8, 0.8, 0.0));
-	auto material_center = make_shared<Lambertian>(Color(0.7, 0.3, 0.3));
+	auto material_center = make_shared<Dielectric>(1.5);
 
 	//last parameter here is fuzziness which is how clear the sphere reflects
 	auto material_left = make_shared<Metal>(Color(0.9, 0.9, 0.9), 0.0);
