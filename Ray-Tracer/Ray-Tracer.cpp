@@ -49,18 +49,19 @@ int main()
 	Hittable_list world;
 
 	auto material_ground = make_shared<Lambertian>(Color(0.8, 0.8, 0.0));
-	auto material_center = make_shared<Dielectric>(1.5);
-
+	auto material_clear_metal = make_shared<Metal>(Color(1.0,1.0,1.0),0.0);
+	auto material_red = make_shared<Lambertian>(Color(0.9, 0.0, 0.0));
 	//last parameter here is fuzziness which is how clear the sphere reflects
 	auto material_left = make_shared<Metal>(Color(0.9, 0.9, 0.9), 0.0);
-	auto material_right = make_shared<Metal>(Color(0.8, 0.6, 0.2), 0.5);
+	auto material_metal_yellow = make_shared<Metal>(Color(0.8, 0.6, 0.2), 0.5);
 
 	world.add(make_shared<Sphere>(Point3(0.0, -100.5, -1.0), 100.0, material_ground));
-	world.add(make_shared<Sphere>(Point3(0.0, 0.0, -1.0), -0.5, material_center));
-	world.add(make_shared<Sphere>(Point3(-1.0, 0.0, -1.0), 0.5, material_left));
-	world.add(make_shared<Sphere>(Point3(1.0, 0.0, -1.0), 0.5, material_right));
+
+	world.add(make_shared<Sphere>(Point3(1.2, 0.0, 0.0), 0.5, material_metal_yellow));
+	world.add(make_shared<Sphere>(Point3(0.0, 0.0, 0.0), 0.5, material_clear_metal));
+	world.add(make_shared<Sphere>(Point3(-1.2, 0.0, 0.0), 0.4, material_red));
 	//Camera
-	Camera cam;
+	Camera cam(Point3(0,0.5,-2), Point3(0,0,-1), Vec3(0,1,0), 60, aspect_ratio);
 	
 	// Render
 	std::cout << "P3\n" << image_width << ' ' << image_height << "\n255\n";
