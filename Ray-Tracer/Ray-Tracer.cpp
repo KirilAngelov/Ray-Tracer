@@ -36,7 +36,7 @@ SDL_Surface* gHelloWorld = NULL;
 SDL_Rect position;
 std::vector<Uint32> colors{0,0,0};
 
-//surface to write pixels and display real time
+//surface to write pixels and display
 SDL_Surface* canvas = SDL_CreateRGBSurfaceWithFormat(
 	0, image_width, image_height, 32, SDL_PIXELFORMAT_RGBA8888
 );
