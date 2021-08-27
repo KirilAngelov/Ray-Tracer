@@ -3,6 +3,7 @@
 #include "Hittable_list.h"
 #include "Sphere.h"
 #include "Camera.h"
+#include "DoubleGenerator.h"
 #include<fstream>
 #include<iostream>
 #include <SDL.h>
@@ -11,7 +12,7 @@
 #include <string>
 #include <filesystem>
 #include <thread>
-
+#include <cstdlib>
 const int SCREEN_WIDTH = 900;
 const int SCREEN_HEIGHT = 600;
 
@@ -19,7 +20,7 @@ const int SCREEN_HEIGHT = 600;
 const auto aspect_ratio = 16.0 / 9.0;
 const int image_width = 400;
 const int image_height = static_cast<int>(image_width / aspect_ratio);
-const int samples_per_pixel = 50;
+const int samples_per_pixel = 250;
 const int max_depth = 50;
 
 bool init();
@@ -124,18 +125,30 @@ Color ray_color(const Ray& r, const Hittable& world, int depth) {
 
 void render()
 {
+	std::random_device rdevice;
+	DoubleGenerator radiusGen { 0.1, 0.5, rdevice};
+	DoubleGenerator xGen {-2.0, 4.0, rdevice};
+	DoubleGenerator yGen { 0.0, 1 , rdevice};
+	DoubleGenerator zGen{ -5.0, -0.3 , rdevice};
+
+	
 	// World
 	Hittable_list world;
-	world.add(make_shared<Sphere>(Point3(0, 0, -1), 0.5));
+	for (size_t i = 1; i <= 2; i++)
+	{
+		world.add(make_shared<Sphere>(Point3(-0.5, yGen(), zGen()), 0.2));
+
+	}
+	world.add(make_shared<Sphere>(Point3(0, -0.25, -1), 0.2));
 	world.add(make_shared<Sphere>(Point3(0, -100.5, -1), 100));
 
 	//Camera
 	Camera cam;
 
 	// Render
-	std::ofstream ofs;
+	//std::ofstream ofs;
 	
-	//ofs.open("./image.ppm", std::ofstream::out | std::ofstream::binary);
+	//ofs.open("./image2.ppm", std::ofstream::out | std::ofstream::binary);
 	//ofs << "P3\n" << image_width << ' ' << image_height << "\n255\n";
 
 	Color pixel_color(0, 0, 0);

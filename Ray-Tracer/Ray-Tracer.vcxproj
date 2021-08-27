@@ -169,6 +169,7 @@
     <ClInclude Include="..\..\vclib\SDL2-2.0.16\include\SDL.h" />
     <ClInclude Include="Camera.h" />
     <ClInclude Include="Color.h" />
+    <ClInclude Include="DoubleGenerator.h" />
     <ClInclude Include="Hittable.h" />
     <ClInclude Include="Hittable_list.h" />
     <ClInclude Include="Ray.h" />

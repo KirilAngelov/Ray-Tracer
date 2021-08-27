@@ -47,5 +47,8 @@
     <ClInclude Include="..\..\vclib\SDL2-2.0.16\include\SDL.h">
       <Filter>Source Files</Filter>
     </ClInclude>
+    <ClInclude Include="DoubleGenerator.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>
