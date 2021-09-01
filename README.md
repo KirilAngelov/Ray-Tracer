@@ -17,6 +17,6 @@ C++ is used for computation on the CPU and SDL for displaying the result in a se
 The vclib folder contains everything you need to run the project. No setup is required.
 
 # Building and running
-All ypu need to do is clone the repository and build amd run the solution. Enjoy!
+All you need to do is clone the repository and build and run the solution. Enjoy!
 
 
