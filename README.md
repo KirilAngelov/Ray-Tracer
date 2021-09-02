@@ -24,7 +24,7 @@ This raytracer was made with C/C++ and the framework [SDL](https://www.libsdl.or
 
 <br />
 <p align="center">
-  And finnaly, this one shows what happens when we use some kind of interval for the X axis while keeping Y and Z free.
+  And finally, this one shows what happens when we use some kind of interval for the X axis while keeping Y and Z free.
   <br />
   <img src= "https://user-images.githubusercontent.com/44143480/131138050-d1352e66-de19-4640-b66d-c15ce5aa937e.jpeg">
 </p>
@@ -47,6 +47,10 @@ First we have a camera that acts like a position from which we "see". A class is
 
 
 # Techologies used
+1. C++ 17
+2. SDL version 2.0.16 stable
+<br />
+The major programming concepts used are classes, polymorphism, reading and writing to files and smart pointers.
 C++ is used for computation on the CPU and SDL for displaying the result in a separate window.
 
 # Dependencies
